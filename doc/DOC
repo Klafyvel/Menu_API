@@ -1,0 +1,34 @@
+# Documentation de Menu_API
+# Auteur : Hugo LEVY-FALK (klafyvel)
+
+avant utilisation : 
+					- Placer dans le répertoire de travail les fichiers "menu.h" et "menu.c".
+					- Ajouter les fichiers "main.h" et "main.c" à votre projet.
+					- Dans le fichier principal du code source inclure l'API ("#include "menu.h").
+utilisation :
+					- L'API appelle des fonctions ayant pour prototype "void fonction(void);".
+		initialisation:
+					- Créez votre menu (par exemple Menu leNomDeMonMenu;)
+					- Initialisez-le :  Menu_new(&leNomDeMonMenu, "Le titre de mon menu");
+		création d'item:
+					- Item monItem;
+					- L'item peut-être soit un item normal (une action) soit un sous-menu:
+						- item normal : Menu_newItem(&monItem, fonction, "Le nom de mon item");
+						- sous-menu   : Menu_newItemSubMenu(&monItem, &monSousMenu, "Le nom du sous-menu"); (monSousMenu doit avoir été initialisé comme un menu normal)
+		ajout et suppression d'item:
+					- pour ajouter un item à un menu : Menu_addItem(&monMenu, &monItem);
+					- pour retirer un item avec son numéro  : Menu_removeItemById(&monMenu, 1) (enlève le deuxième item)
+											avec son nom	: Menu_removeItemByLabel(&monMenu, "Le nom de mon item");
+				
+		exemple d'utilisation basique du menu :
+	
+			while(1)
+			{
+				int action = Menu_choose(&monMenu);
+				if(action == -1)
+					break;
+				else
+					Menu_do(&monMenu, action)
+			}
+-(un exemple plus complet se trouve dans le fichier src/main.c)
+-(pour voir l'API en action se placer dans le répertoire principal du projet et faire "make". L'executable se trouvera dans le dossier example)
