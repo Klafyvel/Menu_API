@@ -115,6 +115,7 @@ int Menu_choose(Menu* menu) // Fonction pour choisir une id
         printf("%d- Quitter\n", menu->nombreItem + 1);
         choix = inputLong(); // On récupère l'entrée utilisateur.
     }
+	clrscr();
     if(choix==(menu->nombreItem + 1)) // si on choisis de quitter le programme
     {
         return -1;
