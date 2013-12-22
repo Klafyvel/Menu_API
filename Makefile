@@ -13,7 +13,7 @@
 #    You should have received a copy of the GNU Lesser General Public
 #    License along with this program; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-.PHONY: clean, mrproper
+.PHONY: clean, mrproper, archive
 .SUFFIXES:
 
 #variables
@@ -30,6 +30,7 @@ endif
 all: main.o menu.o
 	mkdir example
 	$(CC) $^ -o $(EXEC) $(CFLAGS)
+	@echo "\033[31mMakefile: \033[32m \t> un exemple a été créé à partir du fichier src/main.c à cet endroit : $(EXEC)\n\t\t> 'make mrproper' pour réinitialiser le répertoire. \033[0m \n"
 
 main.o: src/menu.h src/color.h
 
@@ -42,4 +43,15 @@ clean:
 
 # mrproper
 mrproper: clean
-	rm -rf Menu example
+	rm -rf Menu example Menu_API Menu_API.tar.gz 
+
+#création d'une archive
+archive:
+	mkdir Menu_API
+	cp -r ./COPYING Menu_API
+	cp -r ./doc Menu_API
+	cp -r ./Makefile Menu_API
+	cp -r ./README.md Menu_API
+	cp -r ./src Menu_API
+	tar -czvf Menu_API.tar.gz ./Menu_API
+	rm -r Menu_API
